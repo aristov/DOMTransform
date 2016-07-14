@@ -16,14 +16,14 @@ Consider this XML murkup:
 
 Let's write transforming templates:
 ```js
-domTransform('cities', function({ content }) {
+domTransform.element('cities', function({ content }) {
     return {
         element : 'select',
         attributes : { name : 'cities' },
         content : this.apply(content)
     }
 })
-domTransform('city', function({ attributes }) {
+domTransform.element('city', function({ attributes }) {
     const name = attributes.name;
     return {
         element : 'option',
@@ -65,7 +65,7 @@ domTransform.element('myapp', function({ attributes, content }) {
 const result = domTransform.apply({
     element : 'myapp',
     attributes : { /* ... */ },
-    content : [/* ... */]
+    content : [ /* ... */ ]
 });
 
 // convert resulting DON tree to DOM tree
