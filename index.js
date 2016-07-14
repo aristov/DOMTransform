@@ -1,3 +1,6 @@
+/**
+ * DOMTransform
+ */
 export default class DOMTransform {
     constructor() {
         this.nodes = {
@@ -19,12 +22,31 @@ export default class DOMTransform {
             })
         };
     }
+
+    /**
+     * Registers node transform function
+     * @param {String} name — transform name
+     * @param {Function} transform — transform function
+     */
     node(name, transform) {
         this.nodes[name] = transform;
     }
+
+    /**
+     * Registers element transform function
+     * @param {String} name — transform name
+     * @param {Function} transform — transform function
+     */
     element(name, transform) {
         this.elements[name] = transform;
     }
+
+    /**
+     * Applies registered transformations to DON-tree
+     * @param {Object|Array} object — root input DON-tree object
+     * @param {Object} params — additional parameters
+     * @returns {Object|Array} don — root resulting DON-tree object
+     */
     apply(object, params) {
         if(!object) {
             return null;
