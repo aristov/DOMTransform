@@ -3,6 +3,11 @@
 A constructor of declarative JavaScript DOM-based templates.
 DOMTransform uses [DON](//github.com/aristov/DON) to describe document transformations.
 
+## Installation
+```
+npm install https://github.com/aristov/DOMTransform.git --save
+```
+
 ## Simple transform example
 
 Consider this XML murkup:
@@ -38,43 +43,44 @@ With these two transforms we get the following HTML murkup:
 <select name=cities>
     <option value=mos>Moscow</option>
     <option value=ams>Amsterdam</option>
-    <option value=new>Moscow</option>
+    <option value=new>New York</option>
 </select>
-```
-
-## Installation
-```
-npm install https://github.com/aristov/DOMTransform.git --save
 ```
 
 ## Usage
 ```js
-// import tools
+// import tool
 import DOMTransform from 'DOMTransform';
-import DON from 'DON';
 
-// create templater instance
-const domTransform = new DOMTransform;
+// define input DON tree
+const input = {
+    element : 'button',
+    attributes : { id : 'mybutton' },
+    content : 'Push button'
+}
 
-// write transformations
-domTransform.element('myapp', function({ attributes, content }) {
-    /* transformations */
-});
+// write templates
+const templates = [
+    domTransform => domTransform.element('button', function({ attributes, content }) {
+        return {
+            element : 'span',
+            attributes : { role : 'button', id : attributes.id },
+            content : this.apply(content)
+        };
+    })
+];
 
-// apply transformations to input DON tree
-const result = domTransform.apply({
-    element : 'myapp',
-    attributes : { /* ... */ },
-    content : [ /* ... */ ]
-});
+// apply templates to input DON tree
+const result = DOMTransform.transform(input, templates);
 
-// convert resulting DON tree to DOM tree
-const myapp = DON.toDOM(result);
-
-// append generated DOM to document
-document.body.appendChild(myapp);
+// append resulting DOM to document body
+document.body.appendChild(result);
 ```
 
+The appended result is DOM representation of the following HTML:
+```html
+<span role=button id=mybutton>Push button</span>
+```
 
 ## License
 
