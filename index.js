@@ -1,4 +1,5 @@
-import { fromDOM, toDOM } from 'DON';
+import fromDOM from 'DON/lib/fromDOM';
+import toDOM from 'DON/lib/toDOM';
 
 /**
  * @class DOMTransform
