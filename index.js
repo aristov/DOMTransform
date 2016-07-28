@@ -27,8 +27,8 @@ export default class DOMTransform {
 
     /**
      * Registers node template
-     * @param {String} name transform name
-     * @param {Function} transform transform function
+     * @param {String} name Transform name
+     * @param {Function} transform Transform function
      */
     node(name, transform) {
         this.nodes[name] = transform;
@@ -36,8 +36,8 @@ export default class DOMTransform {
 
     /**
      * Registers element template
-     * @param {String} name template name
-     * @param {Function} transform function
+     * @param {String} name Template name
+     * @param {Function} transform Transform function
      */
     element(name, transform) {
         this.elements[name] = transform;
@@ -45,9 +45,9 @@ export default class DOMTransform {
 
     /**
      * Applies registered templates to DON-tree
-     * @param {Object|Array} object root input DON-tree object
-     * @param {Object} [params] additional parameters
-     * @returns {Object|Array} don — root resulting DON-tree object
+     * @param {Object|Array} object Root input DON-tree object
+     * @param {Object} [params] Additional parameters
+     * @returns {Object|Array} don Root resulting DON-tree object
      */
     apply(object, params) {
         if(!object) {
@@ -71,8 +71,8 @@ export default class DOMTransform {
 
     /**
      * Applies registered templates to given DOM/DON-tree and builds a new DOM-tree
-     * @param {Node|Object} input root input DOM/DON-tree node/object
-     * @returns {Node} resulting DOM-tree root node
+     * @param {Node|Object} input Root input DOM/DON-tree node/object
+     * @returns {Node} Resulting DOM-tree root node
      */
     transform(input) {
         return toDOM(this.apply(input instanceof Node? fromDOM(input) : input));
@@ -80,7 +80,7 @@ export default class DOMTransform {
 
     /**
      * Registers all given templates
-     * @param {Array} templates
+     * @param {Array} templates The array of template registering functions
      */
     templates(...templates) {
         templates.forEach(template => template(this));
@@ -88,13 +88,13 @@ export default class DOMTransform {
 
     /**
      * Applies given templates to given DOM/DON-tree and builds a new DOM-tree
-     * @param {Node|Object} input root input DOM/DON-tree node/object
-     * @param {Array} templates
-     * @returns {Node} resulting DOM-tree root node
+     * @param {Node|Object} input Root input DOM/DON-tree node/object
+     * @param {Array} templates The array of template registering functions
+     * @returns {Node} Resulting DOM-tree root node
      */
     static transform(input, templates) {
         const domTransform = new DOMTransform;
-        domTransform.templates(templates);
+        domTransform.templates(...templates);
         return domTransform.transform(input);
     }
 }
