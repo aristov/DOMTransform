@@ -2,6 +2,7 @@ import fromDOM from 'DON/lib/fromDOM';
 import toDOM from 'DON/lib/toDOM';
 
 /**
+ * Transformer instance registers new transform functions and applies them to given input.
  * @class DOMTransform
  */
 export default class DOMTransform {
