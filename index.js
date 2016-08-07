@@ -77,12 +77,13 @@ export default class DOMTransform {
      * @returns {Node} Resulting DOM-tree root node
      */
     transform(input) {
-        return toDOM(this.apply(input instanceof Node? fromDOM(input) : input));
+        if(input instanceof Node) input = fromDOM(input);
+        return toDOM(this.apply(input));
     }
 
     /**
      * Registers all given templates
-     * @param {Array} templates The array of template registering functions
+     * @param {...Function} templates Template registering functions
      */
     templates(...templates) {
         templates.forEach(template => template(this));
